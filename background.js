@@ -1,4 +1,34 @@
-var reqUrl = "http://localhost:8080/content";
+var reqUrl = "http://localhost:5000/content";
+
+//  * @param {String} url request url
+//  * @param {String} param page content
+//  * @param {*} sender
+//  */
+function sendContent(url, param, tabId) {
+  var xmlhttp = null;
+  if (window.XMLHttpRequest) {
+    // code for all new browsers
+    xmlhttp = new XMLHttpRequest();
+  } else if (window.ActiveXObject) {
+    // code for IE5 and IE6
+    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+  }
+  if (xmlhttp != null) {
+    xmlhttp.open("POST", url, true);
+    xmlhttp.setRequestHeader(
+      "Content-Type",
+      "application/x-www-form-urlencoded;charset=utf-8"
+    );
+    // let querySring = getQueryString(param);
+    xmlhttp.send({
+      a: 1,
+      b: 2,
+      c: "lzh",
+    });
+  } else {
+    console.log("Your browser does not support XMLHTTP.");
+  }
+}
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   console.log("bg.js-04  line", request);
@@ -8,8 +38,8 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 
   chrome.webRequest.onBeforeRequest.addListener(
     function (details) {
-		console.log('chrome.webRequest.onBeforeRequest---bg.js', details)
-    //   return { cancel: true };
+      console.log("chrome.webRequest.onBeforeRequest---bg.js", details);
+      //   return { cancel: true };
     },
     {
       urls: ["*://*/*"],
@@ -122,31 +152,31 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 //  * @param {String} param page content
 //  * @param {*} sender
 //  */
-function sendContent(url, param, tabId) {
-  var xmlhttp = null;
-  if (window.XMLHttpRequest) {
-    // code for all new browsers
-    xmlhttp = new XMLHttpRequest();
-  } else if (window.ActiveXObject) {
-    // code for IE5 and IE6
-    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-  }
-  if (xmlhttp != null) {
-    xmlhttp.open("POST", url, true);
-    xmlhttp.setRequestHeader(
-      "Content-Type",
-      "application/x-www-form-urlencoded;charset=utf-8"
-    );
-    // let querySring = getQueryString(param);
-    xmlhttp.send({
-      a: 1,
-      b: 2,
-      c: "lzh",
-    });
-  } else {
-    console.log("Your browser does not support XMLHTTP.");
-  }
-}
+// function sendContent(url, param, tabId) {
+//   var xmlhttp = null;
+//   if (window.XMLHttpRequest) {
+//     // code for all new browsers
+//     xmlhttp = new XMLHttpRequest();
+//   } else if (window.ActiveXObject) {
+//     // code for IE5 and IE6
+//     xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+//   }
+//   if (xmlhttp != null) {
+//     xmlhttp.open("POST", url, true);
+//     xmlhttp.setRequestHeader(
+//       "Content-Type",
+//       "application/x-www-form-urlencoded;charset=utf-8"
+//     );
+//     // let querySring = getQueryString(param);
+//     xmlhttp.send({
+//       a: 1,
+//       b: 2,
+//       c: "lzh",
+//     });
+//   } else {
+//     console.log("Your browser does not support XMLHTTP.");
+//   }
+// }
 
 // /**
 //  *
